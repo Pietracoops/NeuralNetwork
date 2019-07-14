@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Logs
+*.tlog
+
+# Visual Studio Misc
+*.sdf
+*.opendb
+*.idb
+*.db
