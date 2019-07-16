@@ -1,4 +1,5 @@
 #pragma once
+#include<vector>
 
 class NeuralNet
 {
@@ -16,25 +17,24 @@ private:
 
 	int numTestData;
 
-	double* inputs;
+	std::vector<double> inputs;
 
-	double** ihWeights; //input-hidden
-	double* hBiases;
-	double* hOutputs;
+	std::vector< std::vector<double> > ihWeights;
+	std::vector<double> hBiases;
+	std::vector<double> hOutputs;
 
-	double** hoWeights; //hidden-ouput
-	double* oBiases;
+	std::vector< std::vector<double> > hoWeights;
+	std::vector<double> oBiases;
 
-	double* outputs;
+	std::vector<double> outputs;
 
-	double* oGrads; //output gradients for back-propogation
-	double* hGrads; //hidden gradients for back-propogation
+	std::vector<double> hGrads;
+	std::vector<double> oGrads;
 
-	// back-prop momentum specific arrays (could be local to method Train)
-	double** ihPrevWeightsDelta; //For momentum with back-propogation
-	double* hPrevBiasesDelta;
-	double** hoPrevWeightsDelta;
-	double* oPrevBiasesDelta;
+	std::vector< std::vector<double> > ihPrevWeightsDelta;
+	std::vector<double> hPrevBiasesDelta;
+	std::vector< std::vector<double> > hoPrevWeightsDelta;
+	std::vector<double> oPrevBiasesDelta;
 
 
 
@@ -42,25 +42,33 @@ private:
 
 	double** MakeMatrix(int rows, int cols);
 	double GenerateRand();
-	void Shuffle(int* Sequence);
-	double MeanSquaredError(double** TrainData);
-	void CopyArray(double* SourceArray, int SourceArrayIdx, double* DestinationArray, int DestinationIndex, int length);
+	void Shuffle(std::vector<int>& Sequence);
+	double MeanSquaredError(std::vector< std::vector<double> >& TrainData);
+	void CopyArray(std::vector<double>& SourceArray, int SourceArrayIdx, std::vector<double>& DestinationArray, int DestinationIndex, int length);
 	double HyperTanFunction(double x);
-	double* Softmax(double* oSums);
-	void UpdateWeights(double* tValues, double learnRate, double momentum, double weightDecay);
+	std::vector<double> Softmax(std::vector<double> oSums);
+	void UpdateWeights(std::vector<double> tValues, double learnRate, double momentum, double weightDecay);
+	int MaxIndex(std::vector<double> vector);
 
+	void StoreDatabase(int i);
 public:
 
 	//VARIABLES
 
-
+	int numWeights;
 
 	//FUNCTIONS
 	NeuralNet(int numInput, int numHidden, int numOutput);  //Constructor
 	~NeuralNet();
 
+
+	void MakeTrainTest(std::vector< std::vector<double> >& AllData, std::vector< std::vector<double> >& TrainData, std::vector< std::vector<double> >& TestData);
+
 	void InitializeWeights();
-	void SetWeights(double* weights);
-	void Train(double** trainData, int maxEpochs, double learnRate, double momentum, double weightDecay);
-	double* ComputeOutputs(double* xValues);
+	void SetWeights(std::vector<double> weights);
+	void GetWeights(std::vector<double>& result);
+	void Train(std::vector< std::vector<double> >& trainData, int maxEpochs, double learnRate, double momentum, double weightDecay);
+	std::vector<double> ComputeOutputs(std::vector<double> xValues);
+	double Accuracy(std::vector< std::vector<double> >& testData);
+	void Normalize(std::vector< std::vector<double> >& DataMatrix, std::vector<int> cols);
 };

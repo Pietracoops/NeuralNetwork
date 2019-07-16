@@ -39,3 +39,7 @@
 *.opendb
 *.idb
 *.db
+*.iobj
+*.ipdb
+
+CapstoneNeuralNet/Dependencies/*
