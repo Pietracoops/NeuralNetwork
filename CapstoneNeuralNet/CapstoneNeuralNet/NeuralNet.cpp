@@ -1,23 +1,14 @@
 #include "NeuralNet.h"
-#include <iostream>
-#include <stdlib.h>		// srand, rand
-#include <time.h>		// time
-#include <math.h>
-#include <vector>
-#include <fstream>
 using namespace std;
 
-
 ofstream fout;
-
-
 
 NeuralNet::NeuralNet(int numInput, int numHidden, int numOutput)
 {
 	//Constructor
 
 	numTestData = 20;							//hard coded for now
-	srand(time(NULL));							//Seeding Random for first time
+	srand((unsigned int)time(NULL));							//Seeding Random for first time
 
 	this->numInput = numInput;					//Initializing # of Input Nodes
 	this->numHidden = numHidden;				//Initializing # of Hidden Nodes
@@ -39,8 +30,8 @@ NeuralNet::NeuralNet(int numInput, int numHidden, int numOutput)
 	outputs.resize(numOutput);					//Creating Outputs Array
 	oBiases.resize(numOutput);					//Creating Output Biases Array
 
-	hGrads.resize(numHidden);
-	oGrads.resize(numOutput);
+	hGrads.resize(numHidden);					//Resizing Gradients 
+	oGrads.resize(numOutput);					//Resizing Gradients
 
 
 	ihPrevWeightsDelta.resize(numInput);
@@ -105,10 +96,10 @@ void NeuralNet::MakeTrainTest(std::vector< std::vector<double> >& AllData, std::
 
 	vector<int> sequence(totRows);
 
-	for (int i = 0; i < sequence.size(); ++i)
+	for (size_t i = 0; i < sequence.size(); ++i)
 		sequence[i] = i;
 
-	for (int i = 0; i < sequence.size(); ++i)
+	for (size_t i = 0; i < sequence.size(); ++i)
 	{
 		int r = (int)(GenerateRand() * sequence.size());
 		int tmp = sequence[r];
@@ -144,14 +135,14 @@ void NeuralNet::Normalize(std::vector< std::vector<double> >& DataMatrix, std::v
 	{
 		double sum = 0.0;
 
-		for (int i = 0; i < DataMatrix.size(); ++i)
+		for (size_t i = 0; i < DataMatrix.size(); ++i)
 			sum += DataMatrix[i][col];
 		double mean = sum / DataMatrix.size();
 		sum = 0.0;
-		for (int i = 0; i < DataMatrix.size(); ++i)
+		for (size_t i = 0; i < DataMatrix.size(); ++i)
 			sum += (DataMatrix[i][col] - mean) * (DataMatrix[i][col] - mean);
 		double sd = sqrt(sum / (DataMatrix.size() - 1));
-		for (int i = 0; i < DataMatrix.size(); ++i)
+		for (size_t i = 0; i < DataMatrix.size(); ++i)
 			DataMatrix[i][col] = (DataMatrix[i][col] - mean) / sd;
 	}
 }
@@ -163,14 +154,43 @@ void NeuralNet::InitializeWeights()
 	//Initialize Weights and biases to small random values
 	int numWeights = (numInput * numHidden) + (numHidden * numOutput) + numHidden + numOutput;
 	vector<double> initialWeights(numWeights);
-	double lo = -0.01;
+
+	double lo = -0.01;			//------(-0.01)---|---(0.01)------
 	double hi = 0.01;
 
-	for (int i = 0; i < initialWeights.size(); ++i)
+	for (size_t i = 0; i < initialWeights.size(); ++i)
 		initialWeights[i] = (hi - lo) * GenerateRand() + lo;
 
 	SetWeights(initialWeights);
 }
+
+void NeuralNet::ExportWeights(string filename)
+{
+	//ofstream fout(filename);
+	//
+	//
+	//
+	//
+	//fout.close();
+	//
+	//
+	//// returns the current set of weights, presumably after training
+	//int numWeights = (numInput * numHidden) + (numHidden * numOutput) + numHidden + numOutput;
+	//result.resize(numWeights);
+	//int k = 0;
+	//
+	//for (int i = 0; i < ihWeights.size(); ++i)
+	//	for (int j = 0; j < ihWeights[0].size(); ++j)
+	//		result[k++] = ihWeights[i][j];
+	//for (int i = 0; i < hBiases.size(); ++i)
+	//	result[k++] = hBiases[i];
+	//for (int i = 0; i < hoWeights.size(); ++i)
+	//	for (int j = 0; j < hoWeights[0].size(); ++j)
+	//		result[k++] = hoWeights[i][j];
+	//for (int i = 0; i < oBiases.size(); ++i)
+	//	result[k++] = oBiases[i];
+}
+
 
 void NeuralNet::GetWeights(vector<double>& result)
 {
@@ -179,15 +199,15 @@ void NeuralNet::GetWeights(vector<double>& result)
 	result.resize(numWeights);
 	int k = 0;
 
-	for (int i = 0; i < ihWeights.size(); ++i)
-		for (int j = 0; j < ihWeights[0].size(); ++j)
+	for (size_t i = 0; i < ihWeights.size(); ++i)
+		for (size_t j = 0; j < ihWeights[0].size(); ++j)
 			result[k++] = ihWeights[i][j];
-	for (int i = 0; i < hBiases.size(); ++i)
+	for (size_t i = 0; i < hBiases.size(); ++i)
 		result[k++] = hBiases[i];
-	for (int i = 0; i < hoWeights.size(); ++i)
-		for (int j = 0; j < hoWeights[0].size(); ++j)
+	for (size_t i = 0; i < hoWeights.size(); ++i)
+		for (size_t j = 0; j < hoWeights[0].size(); ++j)
 			result[k++] = hoWeights[i][j];
-	for (int i = 0; i < oBiases.size(); ++i)
+	for (size_t i = 0; i < oBiases.size(); ++i)
 		result[k++] = oBiases[i];
 }
 
@@ -216,11 +236,6 @@ void NeuralNet::SetWeights(vector<double> weights)
 		oBiases[i] = weights[k++];
 }
 
-double NeuralNet::GenerateRand()
-{
-	double rnd = ((double)rand() / (RAND_MAX + 1));
-	return rnd;
-}
 
 void NeuralNet::Train(vector< vector<double> >& trainData, int maxEpochs, double learnRate, double momentum, double weightDecay)
 {
@@ -234,7 +249,7 @@ void NeuralNet::Train(vector< vector<double> >& trainData, int maxEpochs, double
 	float PercentageComp = 0.0;
 	//Need method of fetching data here - Data then needs to be processed in random order
 	vector<int> Sequence(trainData.size());
-	for (int i = 0; i < trainData.size(); ++i)
+	for (size_t i = 0; i < trainData.size(); ++i)
 		Sequence[i] = i;
 
 	while (epoch < maxEpochs)
@@ -245,7 +260,7 @@ void NeuralNet::Train(vector< vector<double> >& trainData, int maxEpochs, double
 
 		Shuffle(Sequence); // visit each training data in random order
 
-		for (int i = 0; i < trainData.size(); ++i)
+		for (size_t i = 0; i < trainData.size(); ++i)
 		{
 			int idx = Sequence[i];
 			CopyArray(trainData[idx], 0, xValues, 0, numInput);
@@ -268,7 +283,7 @@ void NeuralNet::Shuffle(vector<int>& Sequence)
 
 	for (int i = 0; i < numTestData; ++i)
 	{
-		int r = GenerateRand()*numTestData;
+		int r = (int)GenerateRand()*numTestData;
 		int tmp = Sequence[r];
 		Sequence[r] = Sequence[i];
 		Sequence[i] = tmp;
@@ -283,12 +298,12 @@ void NeuralNet::StoreDatabase(int i)
 	{
 		fout << "Input:,";
 
-		for (int i = 0; i < inputs.size(); i++)
+		for (size_t i = 0; i < inputs.size(); i++)
 			fout << inputs[i] << ",";
 
 
 		fout << ",Outputs:,";
-		for (int i = 0; i < outputs.size(); i++)
+		for (size_t i = 0; i < outputs.size(); i++)
 			fout << outputs[i] << ",";
 
 		fout << endl;
@@ -300,15 +315,15 @@ void NeuralNet::StoreDatabase(int i)
 
 		int k = 0;
 
-		for (int i = 0; i < ihWeights.size(); ++i)
-			for (int j = 0; j < ihWeights[0].size(); ++j)
+		for (size_t i = 0; i < ihWeights.size(); ++i)
+			for (size_t j = 0; j < ihWeights[0].size(); ++j)
 				fout << ihWeights[i][j] << endl;
-		for (int i = 0; i < hBiases.size(); ++i)
+		for (size_t i = 0; i < hBiases.size(); ++i)
 			fout << hBiases[i] << endl;
-		for (int i = 0; i < hoWeights.size(); ++i)
-			for (int j = 0; j < hoWeights[0].size(); ++j)
+		for (size_t i = 0; i < hoWeights.size(); ++i)
+			for (size_t j = 0; j < hoWeights[0].size(); ++j)
 				fout << hoWeights[i][j] << endl;
-		for (int i = 0; i < oBiases.size(); ++i)
+		for (size_t i = 0; i < oBiases.size(); ++i)
 			fout << oBiases[i] << endl;
 
 	}
@@ -332,7 +347,7 @@ double NeuralNet::MeanSquaredError(vector< vector<double> >& TrainData)
 									  //Walk through each training case, looks like (6.9 3.2 5.7 2.3) (0 0 1)
 									  //numTestData = size of traindata
 
-	for (int i = 0; i < TrainData.size(); ++i)
+	for (size_t i = 0; i < TrainData.size(); ++i)
 	{
 		CopyArray(TrainData[i], 0, xValues, 0, numInput);
 		CopyArray(TrainData[i], numInput, tValues, 0, numOutput);
@@ -396,7 +411,7 @@ vector<double> NeuralNet::Softmax(vector<double> oSums)
 	// does all output nodes at once so scale doesn't have to be re-computed each time
 
 	double max = oSums[0];
-	for (int i = 0; i < oSums.size(); ++i)
+	for (size_t i = 0; i < oSums.size(); ++i)
 	{
 		if (oSums[i] > max) max = oSums[i];
 	}
@@ -404,11 +419,11 @@ vector<double> NeuralNet::Softmax(vector<double> oSums)
 
 	//Determine scaling factor -- sum of exp(each val - max)
 	double scale = 0.0;
-	for (int i = 0; i < oSums.size(); ++i)
+	for (size_t i = 0; i < oSums.size(); ++i)
 		scale += exp(oSums[i] - max);
 
 	vector<double> result(oSums.size());
-	for (int i = 0; i < oSums.size(); ++i)
+	for (size_t i = 0; i < oSums.size(); ++i)
 		result[i] = exp(oSums[i] - max) / scale;
 
 	return result; // now scaled so that xi sum to 1.0
@@ -506,7 +521,7 @@ double NeuralNet::Accuracy(std::vector< std::vector<double> >& testData)
 
 
 
-	for (int i = 0; i < testData.size(); ++i)
+	for (size_t i = 0; i < testData.size(); ++i)
 	{
 		CopyArray(testData[i], 0, xValues, 0, numInput);
 		CopyArray(testData[i], numInput, tValues, 0, numOutput);
@@ -538,7 +553,7 @@ int NeuralNet::MaxIndex(std::vector<double> vector)
 	int bigIndex = 0;
 	double biggestVal = vector[0];
 
-	for (int i = 0; i < vector.size(); ++i)
+	for (size_t i = 0; i < vector.size(); ++i)
 	{
 		if (vector[i] > biggestVal)
 		{

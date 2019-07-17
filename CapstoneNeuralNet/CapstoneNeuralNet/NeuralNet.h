@@ -1,6 +1,5 @@
 #pragma once
-#include<vector>
-
+#include "Mass_ToolKit.h"
 class NeuralNet
 {
 
@@ -41,7 +40,6 @@ private:
 	//FUNCTIONS
 
 	double** MakeMatrix(int rows, int cols);
-	double GenerateRand();
 	void Shuffle(std::vector<int>& Sequence);
 	double MeanSquaredError(std::vector< std::vector<double> >& TrainData);
 	void CopyArray(std::vector<double>& SourceArray, int SourceArrayIdx, std::vector<double>& DestinationArray, int DestinationIndex, int length);
@@ -67,6 +65,7 @@ public:
 	void InitializeWeights();
 	void SetWeights(std::vector<double> weights);
 	void GetWeights(std::vector<double>& result);
+	void ExportWeights(std::string filename);
 	void Train(std::vector< std::vector<double> >& trainData, int maxEpochs, double learnRate, double momentum, double weightDecay);
 	std::vector<double> ComputeOutputs(std::vector<double> xValues);
 	double Accuracy(std::vector< std::vector<double> >& testData);

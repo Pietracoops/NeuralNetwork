@@ -1,6 +1,5 @@
 #include "NeuralNet.h"
-#include "Mass_ToolKit.h"
-//#include <fstream>
+
 using namespace std;
 
 
@@ -179,7 +178,7 @@ int main()
 	allData[148] = { 6.2, 3.4, 5.4, 2.3, 1, 0, 0 };
 	allData[149] = { 5.9, 3.0, 5.1, 1.8, 1, 0, 0 };
 
-
+	//Displaying Data
 	for (int i = 0; i < 150; i++)
 	{
 		fout << "Data[" << i << "],";
@@ -189,20 +188,20 @@ int main()
 		fout << endl;
 	}
 
+	//Need a parse data function here to read inputs from text file and to delimit the data
 
-
-	vector< vector<double> > TrainData(1, vector<double>(1));
-	vector< vector<double> > TestData(1, vector<double>(1));
+	vector< vector<double> > TrainData(1, vector<double>(1));	//Simple initialization of Training Data array and [1,1]
+	vector< vector<double> > TestData(1, vector<double>(1));	//Simple initialization of Testing Data array [1,1] 
 
 	NeuralNet nn(4, 7, 3);
 
-	nn.MakeTrainTest(allData, TrainData, TestData);
+	nn.MakeTrainTest(allData, TrainData, TestData);				//Split the total data and fill into Training Data and Testing Data - standard is 80-20 split
 
 
-	vector<int> Cols = { 0, 1, 2, 3 };
+	vector<int> Cols = { 0, 1, 2, 3 };							//Specifying which columns in the Data needs to be normalized
 
-	nn.Normalize(TrainData, Cols);
-	nn.Normalize(TestData, Cols);
+	nn.Normalize(TrainData, Cols);								//Normalize the Training Data
+	nn.Normalize(TestData, Cols);								//Normalize the Testing Data
 
 
 	nn.InitializeWeights();
@@ -227,7 +226,7 @@ int main()
 
 	nn.GetWeights(weights);
 
-	for (int i = 0; i < weights.size(); i++)
+	for (size_t i = 0; i < weights.size(); i++)
 		cout << weights[i] << "      ";
 
 
