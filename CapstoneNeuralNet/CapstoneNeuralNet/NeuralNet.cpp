@@ -515,9 +515,9 @@ double NeuralNet::Accuracy(std::vector< std::vector<double> >& testData)
 	int numCorrect = 0;
 	int numWrong = 0;
 	double result;
-	vector<double> xValues(numInput); //inputs
-	vector<double> tValues(numOutput); //targets
-	vector<double> yValues; //computed Y
+	vector<double> xValues(numInput);	//inputs
+	vector<double> tValues(numOutput);	//targets
+	vector<double> yValues;				//computed Y
 
 
 
@@ -526,9 +526,9 @@ double NeuralNet::Accuracy(std::vector< std::vector<double> >& testData)
 		CopyArray(testData[i], 0, xValues, 0, numInput);
 		CopyArray(testData[i], numInput, tValues, 0, numOutput);
 		yValues = ComputeOutputs(xValues);
-		int maxIndex = MaxIndex(yValues); //which cell in yValue has largest value?
+		int maxIndex = MaxIndex(yValues);							//which cell in yValue has largest value?
 
-		if (tValues[maxIndex] == 1.0) // ugly. consider AreEqual(double x, double y)
+		if (tValues[maxIndex] == 1.0)								// ugly. consider AreEqual(double x, double y)
 			++numCorrect;
 		else
 			++numWrong;

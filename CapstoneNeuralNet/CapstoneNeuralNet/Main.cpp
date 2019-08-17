@@ -245,3 +245,10 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+//1-Data acquisition — this provides us the features
+//2-Data preprocessing — an often dreaded but necessary step to make the data usable
+//3-Develop and implement model — where we choose the type of neural network and parameters
+//4-Backtest model — a very crucial step in any trading strategy
+//5-Optimization — finding suitable parameters

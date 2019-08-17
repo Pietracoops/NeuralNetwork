@@ -24,7 +24,6 @@ private:
 
 	std::vector< std::vector<double> > hoWeights;
 	std::vector<double> oBiases;
-
 	std::vector<double> outputs;
 
 	std::vector<double> hGrads;
