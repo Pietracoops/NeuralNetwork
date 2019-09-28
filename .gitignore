@@ -43,5 +43,6 @@
 *.ipdb
 
 CapstoneNeuralNet/Dependencies/*
+CapstoneNeuralNet/.vs/*
 CapstoneNeuralNet/CapstoneNeuralNet/Data.txt
 CapstoneNeuralNet/CapstoneNeuralNet/output.txt

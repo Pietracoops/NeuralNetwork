@@ -5,49 +5,67 @@ using namespace std;
 
 int main()
 {
+
+
+//========================================================== DEBUGGING SECTION ============================================================
 	ofstream fout;
 	fout.open("output.txt");
-	int DEBUG = 1;
+	int DEBUG = 0;
 
 	vector< vector<double> > allData(150, vector<double>(7));
 
 	fout << "RAW DATA" << endl;
 
-	
+	string filename = "C:\\Users\\Massimo\\Documents\\Programming_Projects\\NeuralNetwork\\CapstoneNeuralNet\\Data\\BCE.TO.csv";
 
-	TickerObject BMO("C:\\Users\\Massimo\\Documents\\Programming_Projects\\NeuralNetwork\\CapstoneNeuralNet\\Data\\BCE.TO.csv");
+	//IF
+	TickerObject BMO(filename, true);
+	int datasize = BMO.Get_Data_Size();
+	int dataset = 7;
 
-	cout << "high on jan 1st 2015: " << BMO.Get_High(2019, 6, 12) << endl;
+	vector< vector<double> > stockData(datasize, vector<double>(dataset));
+	//stockData = BMO.Make_Training_Data();
 
-	//long lastDate;
-	//lastDate = epoch_time(1996, 5, 6, 1);
-	//cout << lastDate << endl;
-
-	system("pause");
-	
+	if (DEBUG == 1) system("pause");
 	if (DEBUG == 1) return 0;
 
-	//Displaying Data
-	for (int i = 0; i < 150; i++)
-	{
-		fout << "Data[" << i << "],";
-		for (int j = 0; j < 7; j++)
-			fout << allData[i][j] << ",";
 
-		fout << endl;
-	}
+//=========================================================================================================================================
+	vector<double> dubarray;
+	double diviser = 100;
+	dubarray = { 1, 1 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 2, 2 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 3, 3 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 4, 4 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 5, 5 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 6, 6 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 7, 7 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 8, 8 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 9, 9 / diviser };
+	stockData.push_back(dubarray);
+	dubarray = { 10, 10 / diviser };
+	stockData.push_back(dubarray);
+
 
 	//Need a parse data function here to read inputs from text file and to delimit the data
 
 	vector< vector<double> > TrainData(1, vector<double>(1));	//Simple initialization of Training Data array and [1,1]
 	vector< vector<double> > TestData(1, vector<double>(1));	//Simple initialization of Testing Data array [1,1] 
 
-	NeuralNet nn(4, 7, 3);
+	NeuralNet nn(1, 2, 1);
 
-	nn.MakeTrainTest(allData, TrainData, TestData);				//Split the total data and fill into Training Data and Testing Data - standard is 80-20 split
+	nn.MakeTrainTest(stockData, TrainData, TestData);			//Split the total data and fill into Training Data and Testing Data - standard is 80-20 split
 
 
-	vector<int> Cols = { 0, 1, 2, 3 };							//Specifying which columns in the Data needs to be normalized
+	vector<int> Cols = { 0 };							//Specifying which columns in the Data needs to be normalized
 
 	nn.Normalize(TrainData, Cols);								//Normalize the Training Data
 	nn.Normalize(TestData, Cols);								//Normalize the Testing Data
@@ -80,16 +98,16 @@ int main()
 
 
 	fout.close();
-	vector<double> input(4);
-	input = { 5.8, 3.1, 5.0, 1.8 };
-	vector<double> output(3);
+	vector<double> input;
+	input.push_back(11);
+	vector<double> output(1);
 
 	output = nn.ComputeOutputs(input);
 
 	cout << endl;
 
-	for (int i = 0; i < 3; i++)//should equal to 1 0 0
-		cout << output[i] << "  " << endl;
+	double answer = output[0] * diviser;
+	cout << answer << endl;
 
 	system("pause");
 	return 0;
