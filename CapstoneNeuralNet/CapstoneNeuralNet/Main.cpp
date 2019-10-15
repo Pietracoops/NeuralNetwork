@@ -17,105 +17,333 @@ int main()
 	fout << "RAW DATA" << endl;
 
 	string filename = "C:\\Users\\Massimo\\Documents\\Programming_Projects\\NeuralNetwork\\CapstoneNeuralNet\\Data\\BCE.TO.csv";
-
-	//IF
 	TickerObject BMO(filename, true);
-	int datasize = BMO.Get_Data_Size();
-	int dataset = 7;
 
-	vector< vector<double> > stockData(datasize, vector<double>(dataset));
-	//stockData = BMO.Make_Training_Data();
+
+
+
 
 	if (DEBUG == 1) system("pause");
 	if (DEBUG == 1) return 0;
 
 
 //=========================================================================================================================================
-	vector<double> dubarray;
-	double diviser = 100;
-	dubarray = { 1, 1 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 2, 2 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 3, 3 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 4, 4 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 5, 5 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 6, 6 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 7, 7 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 8, 8 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 9, 9 / diviser };
-	stockData.push_back(dubarray);
-	dubarray = { 10, 10 / diviser };
-	stockData.push_back(dubarray);
 
 
-	//Need a parse data function here to read inputs from text file and to delimit the data
+	vector<vector<double>> Inputs;
+	vector<vector<double>> Outputs;
+	
+		Inputs.push_back({5.1, 3.5, 1.4, 0.2}); 
+		Inputs.push_back({4.9, 3.0, 1.4, 0.2}); 
+		Inputs.push_back({4.7, 3.2, 1.3, 0.2}); 
+		Inputs.push_back({4.6, 3.1, 1.5, 0.2}); 
+		Inputs.push_back({5.0, 3.6, 1.4, 0.2}); 
+		Inputs.push_back({5.4, 3.9, 1.7, 0.4}); 
+		Inputs.push_back({4.6, 3.4, 1.4, 0.3}); 
+		Inputs.push_back({5.0, 3.4, 1.5, 0.2}); 
+		Inputs.push_back({4.4, 2.9, 1.4, 0.2}); 
+		Inputs.push_back({4.9, 3.1, 1.5, 0.1}); 
+		Inputs.push_back({5.4, 3.7, 1.5, 0.2}); 
+		Inputs.push_back({4.8, 3.4, 1.6, 0.2}); 
+		Inputs.push_back({4.8, 3.0, 1.4, 0.1}); 
+		Inputs.push_back({4.3, 3.0, 1.1, 0.1}); 
+		Inputs.push_back({5.8, 4.0, 1.2, 0.2}); 
+		Inputs.push_back({5.7, 4.4, 1.5, 0.4}); 
+		Inputs.push_back({5.4, 3.9, 1.3, 0.4}); 
+		Inputs.push_back({5.1, 3.5, 1.4, 0.3}); 
+		Inputs.push_back({5.7, 3.8, 1.7, 0.3}); 
+		Inputs.push_back({5.1, 3.8, 1.5, 0.3}); 
+		Inputs.push_back({5.4, 3.4, 1.7, 0.2}); 
+		Inputs.push_back({5.1, 3.7, 1.5, 0.4}); 
+		Inputs.push_back({4.6, 3.6, 1.0, 0.2}); 
+		Inputs.push_back({5.1, 3.3, 1.7, 0.5}); 
+		Inputs.push_back({4.8, 3.4, 1.9, 0.2}); 
+		Inputs.push_back({5.0, 3.0, 1.6, 0.2}); 
+		Inputs.push_back({5.0, 3.4, 1.6, 0.4}); 
+		Inputs.push_back({5.2, 3.5, 1.5, 0.2}); 
+		Inputs.push_back({5.2, 3.4, 1.4, 0.2}); 
+		Inputs.push_back({4.7, 3.2, 1.6, 0.2}); 
+		Inputs.push_back({4.8, 3.1, 1.6, 0.2}); 
+		Inputs.push_back({5.4, 3.4, 1.5, 0.4}); 
+		Inputs.push_back({5.2, 4.1, 1.5, 0.1}); 
+		Inputs.push_back({5.5, 4.2, 1.4, 0.2}); 
+		Inputs.push_back({4.9, 3.1, 1.5, 0.1}); 
+		Inputs.push_back({5.0, 3.2, 1.2, 0.2}); 
+		Inputs.push_back({5.5, 3.5, 1.3, 0.2}); 
+		Inputs.push_back({4.9, 3.1, 1.5, 0.1}); 
+		Inputs.push_back({4.4, 3.0, 1.3, 0.2}); 
+		Inputs.push_back({5.1, 3.4, 1.5, 0.2}); 
+		Inputs.push_back({5.0, 3.5, 1.3, 0.3}); 
+		Inputs.push_back({4.5, 2.3, 1.3, 0.3}); 
+		Inputs.push_back({4.4, 3.2, 1.3, 0.2}); 
+		Inputs.push_back({5.0, 3.5, 1.6, 0.6}); 
+		Inputs.push_back({5.1, 3.8, 1.9, 0.4}); 
+		Inputs.push_back({4.8, 3.0, 1.4, 0.3}); 
+		Inputs.push_back({5.1, 3.8, 1.6, 0.2}); 
+		Inputs.push_back({4.6, 3.2, 1.4, 0.2}); 
+		Inputs.push_back({5.3, 3.7, 1.5, 0.2}); 
+		Inputs.push_back({5.0, 3.3, 1.4, 0.2}); 
+		Inputs.push_back({7.0, 3.2, 4.7, 1.4}); 
+		Inputs.push_back({6.4, 3.2, 4.5, 1.5}); 
+		Inputs.push_back({6.9, 3.1, 4.9, 1.5}); 
+		Inputs.push_back({5.5, 2.3, 4.0, 1.3}); 
+		Inputs.push_back({6.5, 2.8, 4.6, 1.5}); 
+		Inputs.push_back({5.7, 2.8, 4.5, 1.3}); 
+		Inputs.push_back({6.3, 3.3, 4.7, 1.6}); 
+		Inputs.push_back({4.9, 2.4, 3.3, 1.0}); 
+		Inputs.push_back({6.6, 2.9, 4.6, 1.3}); 
+		Inputs.push_back({5.2, 2.7, 3.9, 1.4}); 
+		Inputs.push_back({5.0, 2.0, 3.5, 1.0}); 
+		Inputs.push_back({5.9, 3.0, 4.2, 1.5}); 
+		Inputs.push_back({6.0, 2.2, 4.0, 1.0}); 
+		Inputs.push_back({6.1, 2.9, 4.7, 1.4}); 
+		Inputs.push_back({5.6, 2.9, 3.6, 1.3}); 
+		Inputs.push_back({6.7, 3.1, 4.4, 1.4}); 
+		Inputs.push_back({5.6, 3.0, 4.5, 1.5}); 
+		Inputs.push_back({5.8, 2.7, 4.1, 1.0}); 
+		Inputs.push_back({6.2, 2.2, 4.5, 1.5}); 
+		Inputs.push_back({5.6, 2.5, 3.9, 1.1}); 
+		Inputs.push_back({5.9, 3.2, 4.8, 1.8}); 
+		Inputs.push_back({6.1, 2.8, 4.0, 1.3}); 
+		Inputs.push_back({6.3, 2.5, 4.9, 1.5}); 
+		Inputs.push_back({6.1, 2.8, 4.7, 1.2}); 
+		Inputs.push_back({6.4, 2.9, 4.3, 1.3}); 
+		Inputs.push_back({6.6, 3.0, 4.4, 1.4}); 
+		Inputs.push_back({6.8, 2.8, 4.8, 1.4}); 
+		Inputs.push_back({6.7, 3.0, 5.0, 1.7}); 
+		Inputs.push_back({6.0, 2.9, 4.5, 1.5}); 
+		Inputs.push_back({5.7, 2.6, 3.5, 1.0}); 
+		Inputs.push_back({5.5, 2.4, 3.8, 1.1}); 
+		Inputs.push_back({5.5, 2.4, 3.7, 1.0}); 
+		Inputs.push_back({5.8, 2.7, 3.9, 1.2}); 
+		Inputs.push_back({6.0, 2.7, 5.1, 1.6}); 
+		Inputs.push_back({5.4, 3.0, 4.5, 1.5}); 
+		Inputs.push_back({6.0, 3.4, 4.5, 1.6}); 
+		Inputs.push_back({6.7, 3.1, 4.7, 1.5}); 
+		Inputs.push_back({6.3, 2.3, 4.4, 1.3}); 
+		Inputs.push_back({5.6, 3.0, 4.1, 1.3}); 
+		Inputs.push_back({5.5, 2.5, 4.0, 1.3}); 
+		Inputs.push_back({5.5, 2.6, 4.4, 1.2}); 
+		Inputs.push_back({6.1, 3.0, 4.6, 1.4}); 
+		Inputs.push_back({5.8, 2.6, 4.0, 1.2}); 
+		Inputs.push_back({5.0, 2.3, 3.3, 1.0}); 
+		Inputs.push_back({5.6, 2.7, 4.2, 1.3}); 
+		Inputs.push_back({5.7, 3.0, 4.2, 1.2}); 
+		Inputs.push_back({5.7, 2.9, 4.2, 1.3}); 
+		Inputs.push_back({6.2, 2.9, 4.3, 1.3}); 
+		Inputs.push_back({5.1, 2.5, 3.0, 1.1}); 
+		Inputs.push_back({5.7, 2.8, 4.1, 1.3}); 
+		Inputs.push_back({6.3, 3.3, 6.0, 2.5}); 
+		Inputs.push_back({5.8, 2.7, 5.1, 1.9}); 
+		Inputs.push_back({7.1, 3.0, 5.9, 2.1}); 
+		Inputs.push_back({6.3, 2.9, 5.6, 1.8}); 
+		Inputs.push_back({6.5, 3.0, 5.8, 2.2}); 
+		Inputs.push_back({7.6, 3.0, 6.6, 2.1}); 
+		Inputs.push_back({4.9, 2.5, 4.5, 1.7}); 
+		Inputs.push_back({7.3, 2.9, 6.3, 1.8}); 
+		Inputs.push_back({6.7, 2.5, 5.8, 1.8}); 
+		Inputs.push_back({7.2, 3.6, 6.1, 2.5}); 
+		Inputs.push_back({6.5, 3.2, 5.1, 2.0}); 
+		Inputs.push_back({6.4, 2.7, 5.3, 1.9}); 
+		Inputs.push_back({6.8, 3.0, 5.5, 2.1}); 
+		Inputs.push_back({5.7, 2.5, 5.0, 2.0}); 
+		Inputs.push_back({5.8, 2.8, 5.1, 2.4}); 
+		Inputs.push_back({6.4, 3.2, 5.3, 2.3}); 
+		Inputs.push_back({6.5, 3.0, 5.5, 1.8}); 
+		Inputs.push_back({7.7, 3.8, 6.7, 2.2}); 
+		Inputs.push_back({7.7, 2.6, 6.9, 2.3}); 
+		Inputs.push_back({6.0, 2.2, 5.0, 1.5}); 
+		Inputs.push_back({6.9, 3.2, 5.7, 2.3}); 
+		Inputs.push_back({5.6, 2.8, 4.9, 2.0}); 
+		Inputs.push_back({7.7, 2.8, 6.7, 2.0}); 
+		Inputs.push_back({6.3, 2.7, 4.9, 1.8}); 
+		Inputs.push_back({6.7, 3.3, 5.7, 2.1}); 
+		Inputs.push_back({7.2, 3.2, 6.0, 1.8}); 
+		Inputs.push_back({6.2, 2.8, 4.8, 1.8}); 
+		Inputs.push_back({6.1, 3.0, 4.9, 1.8}); 
+		Inputs.push_back({6.4, 2.8, 5.6, 2.1}); 
+		Inputs.push_back({7.2, 3.0, 5.8, 1.6}); 
+		Inputs.push_back({7.4, 2.8, 6.1, 1.9}); 
+		Inputs.push_back({7.9, 3.8, 6.4, 2.0}); 
+		Inputs.push_back({6.4, 2.8, 5.6, 2.2}); 
+		Inputs.push_back({6.3, 2.8, 5.1, 1.5}); 
+		Inputs.push_back({6.1, 2.6, 5.6, 1.4}); 
+		Inputs.push_back({7.7, 3.0, 6.1, 2.3}); 
+		Inputs.push_back({6.3, 3.4, 5.6, 2.4}); 
+		Inputs.push_back({6.4, 3.1, 5.5, 1.8}); 
+		Inputs.push_back({6.0, 3.0, 4.8, 1.8}); 
+		Inputs.push_back({6.9, 3.1, 5.4, 2.1}); 
+		Inputs.push_back({6.7, 3.1, 5.6, 2.4}); 
+		Inputs.push_back({6.9, 3.1, 5.1, 2.3}); 
+		Inputs.push_back({5.8, 2.7, 5.1, 1.9}); 
+		Inputs.push_back({6.8, 3.2, 5.9, 2.3}); 
+		Inputs.push_back({6.7, 3.3, 5.7, 2.5}); 
+		Inputs.push_back({6.7, 3.0, 5.2, 2.3}); 
+		Inputs.push_back({6.3, 2.5, 5.0, 1.9}); 
+		Inputs.push_back({6.5, 3.0, 5.2, 2.0}); 
+		Inputs.push_back({6.2, 3.4, 5.4, 2.3}); 
+		Inputs.push_back({5.9, 3.0, 5.1, 1.8}); 
 
-	vector< vector<double> > TrainData(1, vector<double>(1));	//Simple initialization of Training Data array and [1,1]
-	vector< vector<double> > TestData(1, vector<double>(1));	//Simple initialization of Testing Data array [1,1] 
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 0, 1});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({0, 1, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
+		Outputs.push_back({1, 0, 0});
 
-	NeuralNet nn(1, 2, 1);
+		vector<int> NNConfig{ 4,4,3 };
+		NeuralNet NN(NNConfig);
 
-	nn.MakeTrainTest(stockData, TrainData, TestData);			//Split the total data and fill into Training Data and Testing Data - standard is 80-20 split
+		NN.TrainNeuralNet(Inputs, Outputs, 0.8);
+		
+		cout << NN.Accuracy << endl;
 
-
-	vector<int> Cols = { 0 };							//Specifying which columns in the Data needs to be normalized
-
-	nn.Normalize(TrainData, Cols);								//Normalize the Training Data
-	nn.Normalize(TestData, Cols);								//Normalize the Testing Data
-
-
-	nn.InitializeWeights();
-
-	int maxEpochs = 2000;//2000
-	double learnRate = 0.05;//0.05
-	double momentum = 0.01;//0.01
-	double weightDecay = 0.0001;//0.0001
-
-	nn.Train(TrainData, maxEpochs, learnRate, momentum, weightDecay);
-
-	double trainAcc = nn.Accuracy(TrainData);
-
-	double testAcc = nn.Accuracy(TestData);
-
-	cout << "Train Accuracy: " << trainAcc << endl;
-	cout << "Test Accuracy = " << testAcc << endl;
-
-
-
-	vector<double> weights;
-
-	nn.GetWeights(weights);
-
-	for (size_t i = 0; i < weights.size(); i++)
-		cout << weights[i] << "      ";
-
-
-	fout.close();
-	vector<double> input;
-	input.push_back(11);
-	vector<double> output(1);
-
-	output = nn.ComputeOutputs(input);
-
-	cout << endl;
-
-	double answer = output[0] * diviser;
-	cout << answer << endl;
 
 	system("pause");
 	return 0;
 }
 
-
-//1-Data acquisition — this provides us the features
-//2-Data preprocessing — an often dreaded but necessary step to make the data usable
-//3-Develop and implement model — where we choose the type of neural network and parameters
-//4-Backtest model — a very crucial step in any trading strategy
-//5-Optimization — finding suitable parameters
